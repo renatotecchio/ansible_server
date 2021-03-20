@@ -1,26 +1,10 @@
 #!/bin/bash
 # Debug mode -xv
 
-RBT_PROG=1
-RBT_DEFAULT="\033[01;37m"
-RBT_INFORMATIONCOLLOR="\033[01;32m"
-RBT_ALERTCOLLOR=
-RBT_CRITICALCOLLOR=
-
-
-echo -ne "$Loading System Functions..."
-echo "  [ OK ]"
-
-source functions.sh
-
-
-
 #Install necessarious packages
 sudo yum install net-tools -y
 
 OS_NAME=$(cat /etc/[A-Za-z]*[_-][rv]e[lr]* | grep PRETTY_NAME= | cut -d'=' -f2 | sed 's/"//g')
-
-
 
 #Distribuitions
 OS_DIST[0]=RedHat
@@ -46,16 +30,6 @@ echo $OS_ID
 echo -n Seus sistema é ${OS_DIST[$OS_ID]};
 echo lalalal 
 
-
-
-
-
-
-
-
-
-
-
 GATEWAY_INTERFACE=$(route | grep default | tr -s '[:space:]' ' ' | cut -d ' ' -f 8 )
 NETWORK_INTERFACES_STRING=$(ip a | grep BROADCAST | cut -d ':' -f 2 | sed 's/ //g' > .nis.txt)
 
@@ -66,9 +40,6 @@ while read line; do
     NETWORK_INTERFACES[$i]=$line
     i=$(($i+1))
 done < .nis.txt
-
-
-
 
 #IFS=' ' read -r -a NETWORK_INTERFACES <<< $NETWORK_INTERFACES_STRING 
 
@@ -87,5 +58,3 @@ echo ${NETWORK_INTERFACES[1]}
 #5) instlar o ansible no usuario
 
 
-
-function 

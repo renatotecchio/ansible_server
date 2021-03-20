@@ -65,14 +65,27 @@ EOF
 function add_user {
     show "User configuration" "extrainfo"
     
-    if [ "$RBT_USERNAME" == "" ] || [ "$RBT_PASSWORD" == "" ];
+    if [ "$RBT_USERNAME" == "" ];
     then
         show "Enter username to create the enviroment to install Ansbile:" "critical" "nojump"
         read RBT_USERNAME
     fi
     
+    if [ "$RBT_PASSWORD" == "" ];
+    then
+        show "Enter $RBT_USERNAME's password:" "critical" "nojump"
+        read RBT_USERNAME
+    fi
+    
     PASSWD=$(echo "$RBT_PASSWORD" | openssl passwd -1 -stdin)
     exec "adduser $RBT_USERNAME -m -s /bin/bash -p $PASSWD" "Adding user" "alert" "nojump"
+    exec "usermod -aG wheel $RBT_USERNAME" "Allowing sudo at $RBT_USERNAME" "alert" "nojump"
+
+    #Cleaning user informations in config.sh
+    LINE=$(cat -n $CONFIG_FILE | grep RBT_USERNAME= | tr -s '[:space:]' ' ' | cut -d' ' -f2)
+    sed -i $LINE'c\RBT_USERNAME=""' $CONFIG_FILE
+    LINE=$(cat -n $CONFIG_FILE | grep RBT_PASSWORD= | tr -s '[:space:]' ' ' | cut -d' ' -f2)
+    sed -i $LINE'c\RBT_PASSWORD=""' $CONFIG_FILE
 }
 
 function show_tittle {

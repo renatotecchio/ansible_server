@@ -1,6 +1,6 @@
 STDOUT_FILE=shellscript.log
-
 TMP_FILE=tmp.sh
+CONFIG_FILE=config.sh
 
 RBT_DEFAULT="\033[00;37m" #Default
 RBT_INFORMATIONCOLLOR="\033[01;32m" #Green

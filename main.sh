@@ -1,7 +1,7 @@
 #!/bin/bash
 
-#set -x
-#set -v
+#Debug mode
+#set -xv
 
 source functions.sh
 source functions_centos8.sh
@@ -23,6 +23,7 @@ function main {
 
 main
 
-#remover a senha apos usa-la
-#chegar a senha e chegar o usuario
-#checar sisitema preparar script para debian
+#permitir entrada do usuario e senha na funcao main
+#nao deixar o usuario em branco
+#validar complexidade na senha
+#criar funcao para o debian
