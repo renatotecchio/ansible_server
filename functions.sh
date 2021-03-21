@@ -74,7 +74,8 @@ function add_user {
     if [ "$RBT_PASSWORD" == "" ];
     then
         show "Enter $RBT_USERNAME's password:" "critical" "nojump"
-        read RBT_USERNAME
+        read -s RBT_PASSWORD
+        echo
     fi
     
     PASSWD=$(echo "$RBT_PASSWORD" | openssl passwd -1 -stdin)
