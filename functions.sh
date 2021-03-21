@@ -69,6 +69,7 @@ function add_user {
     then
         show "Enter username to create the enviroment to install Ansbile:" "critical" "nojump"
         read RBT_USERNAME
+        RBT_HOME="/home/$RBT_USERNAME"
     fi
     
     if [ "$RBT_PASSWORD" == "" ];
@@ -110,13 +111,13 @@ function install_ansible {
     write_script "sudo -u $RBT_USERNAME bash -c \"curl https://bootstrap.pypa.io/get-pip.py -o $RBT_HOME/get-pip.py\""
     exec "source $TMP_FILE" "Copying get-pip.py to the $RBT_USERNAME's environment" "alert" "nojump"
     
-    write_script "sudo -u $RBT_USERNAME bash -c \"python $RBT_HOME/get-pip.py --user\""
+    write_script "sudo -u $RBT_USERNAME bash -c \"python3 $RBT_HOME/get-pip.py --user\""
     exec "source $TMP_FILE" "Installing the last pip version in the $RBT_USERNAME's environment" "alert" "nojump"
     
-    write_script "sudo -u $RBT_USERNAME bash -c \"python -m pip install --user ansible\""
+    write_script "sudo -u $RBT_USERNAME bash -c \"python3 -m pip install --user ansible\""
     exec "source $TMP_FILE" "Installing ansible in the $RBT_USERNAME's environment" "alert" "nojump"
 
-    write_script "sudo -u $RBT_USERNAME bash -c \"python -m pip install --user paramiko\""
+    write_script "sudo -u $RBT_USERNAME bash -c \"python3 -m pip install --user paramiko\""
     exec "source $TMP_FILE" "Installing paramiko in the $RBT_USERNAME's environment" "alert" "nojump"
 
     #sudo -u $RBT_USERNAME bash -c "echo 'PATH="$PATH:$RBT_HOME/.local/bin/"' >> "$RBT_HOME/.bashrc" #Don't need more.
@@ -125,5 +126,5 @@ function install_ansible {
 function install_winrm {
     show "Getting WinRM module to manage Windows servers ready" "extrainfo"
     write_script "sudo -u $RBT_USERNAME bash -c \"python3 -m pip install pywinrm pywinrm[credssp] requests-credssp dnspython ldap3 pyyaml PyVmomi pyasn1 --user\""
-    exec "source $TMP_FILE" "Installing pywinrm in the $RBT_USERNAME's environment" "alert" "nojump"    
+    exec "source $TMP_FILE" "Installing pywinrm in the $RBT_USERNAME's environment" "alert" "nojump"    :q
 }

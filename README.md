@@ -19,7 +19,10 @@ Instalação
  - Logue no host e execute o comando abaixo como root.
 
 
-```yum install -y git && cd /home && git clone https://github.com/renatotecchio/ansible_server.git && ansible_server/main.sh```
+```yum install -y git && cd /home && git clone https://github.com/renatotecchio/ansible_server.git && ./main.sh```
+ou
+```yum install -y git && cd /home && git clone git@github.com:renatotecchio/ansible_server.git && ./main.sh```
+
 
 Configuração
 ------------
